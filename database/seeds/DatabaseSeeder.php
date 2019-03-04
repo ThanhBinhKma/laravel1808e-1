@@ -11,6 +11,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
+    	// chay nhieu thang cung 1 luc
+        //$this->call([
+        	// AdminsTableSeeder::class
+        	// Adminsv2TableSeeder::class
+        //]);
+
+        // chay 1 minh AdminsTableSeeder
+        $this->call(AdminsTableSeeder::class);
     }
 }
