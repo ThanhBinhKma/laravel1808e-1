@@ -12,12 +12,16 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
     	// chay nhieu thang cung 1 luc
-        //$this->call([
-        	// AdminsTableSeeder::class
-        	// Adminsv2TableSeeder::class
-        //]);
+        $this->call([
+        	AdminsTableSeeder::class,
+        	BrandsTableSeeder::class,
+            CategoriesTableSeeder::class,
+            ColorsTableSeeder::class,
+            SizesTableSeeder::class,
+            ProductsTableSeeder::class,
+        ]);
 
         // chay 1 minh AdminsTableSeeder
-        $this->call(AdminsTableSeeder::class);
+        //$this->call(AdminsTableSeeder::class);
     }
 }
