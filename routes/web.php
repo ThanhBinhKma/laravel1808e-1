@@ -168,6 +168,14 @@ Route::get('/error-login',function(){
 
 Route::get('info-me','ExampleController@info')->name('info-me');
 
+/************** Query db ****************/
+Route::group([
+	'prefix' => 'db'
+],function(){
+	Route::get('query-get','TestQueryBuilderController@index')->name('queryGet');
+	Route::get('orm-get','TestQueryBuilderController@orm')->name('ormGet');
+});
+
 
 
 

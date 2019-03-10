@@ -25,7 +25,7 @@ class ProductsTableSeeder extends Seeder
         	'id_cat' => $strIdCat,
         	'id_color' => $strIdColor,
         	'id_size' => $strIdSize,
-        	'id_brand' => 5,
+        	'id_brand' => 1,
         	'price' => 200000,
         	'qty' => 10,
         	'description' => 'Quan dep - thoi trang han quoc',
