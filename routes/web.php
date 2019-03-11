@@ -104,23 +104,23 @@ Route::get('/contact-page',function(){
 })->name('contactPage');
 
 // routes group
-Route::group([
-	'prefix' => 'admin',
-	'as' => 'admin.'
-],function(){
+// Route::group([
+// 	'prefix' => 'admin',
+// 	'as' => 'admin.'
+// ],function(){
 
-	Route::get('/home',function(){
-		return "admin - home";
-	})->name('home');
+// 	Route::get('/home',function(){
+// 		return "admin - home";
+// 	})->name('home');
 
-	Route::get('/product',function(){
-		return "admin - Product";
-	})->name('product');
-});
+// 	Route::get('/product',function(){
+// 		return "admin - Product";
+// 	})->name('product');
+// });
 
-Route::get('/login',function(){
-	return redirect()->route('admin.home');
-});
+// Route::get('/login',function(){
+// 	return redirect()->route('admin.home');
+// });
 
 Route::get('/watch-film/{age}',function($age){
 	return redirect()->route('qbb');
@@ -174,6 +174,19 @@ Route::group([
 ],function(){
 	Route::get('query-get','TestQueryBuilderController@index')->name('queryGet');
 	Route::get('orm-get','TestQueryBuilderController@orm')->name('ormGet');
+	Route::get('one-to-many','TestQueryBuilderController@oneToMany')->name('oneToMany');
+
+	Route::get('many-to-many','TestQueryBuilderController@manyToMany')->name('manyToMany');
+});
+
+/****************** Router Admin ******************************/
+Route::group([
+	'prefix' => 'admin',
+	'as' => 'admin.',
+	'namespace' => 'Admin'
+],
+function(){
+	Route::get('login','LoginController@loginView')->name('loginView');
 });
 
 

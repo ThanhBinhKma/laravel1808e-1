@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Admins; // nap model
+use App\Models\Brands; // nap model
+use App\Models\Colors; // nap model
 
 class TestQueryBuilderController extends Controller
 {
@@ -153,5 +155,19 @@ class TestQueryBuilderController extends Controller
     	// 	echo $item['id'];
     	// 	echo "<br/>";
     	// }
+    }
+
+    public function oneToMany(Brands $brands)
+    {
+        $data = $brands->testOneToMany();
+        // foreach($data as $key => $item){
+        //     var_dump($item);
+        // }
+        dd($data->toArray());
+    }
+
+    public function manyToMany(Colors $colors)
+    {
+        
     }
 }
