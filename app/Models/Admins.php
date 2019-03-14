@@ -51,4 +51,19 @@ class Admins extends Model
     	}
     	return $data;
     }
+
+    public function checkAadminLogin($user, $pass)
+    {
+        $data = [];
+        $query = Admins::select('*')
+                        ->where('username',$user)
+                        ->where('password',$pass)
+                        ->where('role',-1)
+                        ->where('status',1)
+                        ->first();
+        if($query){
+            $data = $query->toArray();
+        }
+        return $data;
+    }
 }
