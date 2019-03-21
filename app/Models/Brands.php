@@ -21,5 +21,13 @@ class Brands extends Model
     	return Brands::find(1)->products;
     }
 
+    public function getAllDataBrands()
+    {
+        $data = Brands::all();
+        if($data){
+            $data = $data->toArray();
+        }
+        return $data;
+    }
     
 }

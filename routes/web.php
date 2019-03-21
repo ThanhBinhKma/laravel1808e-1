@@ -194,10 +194,14 @@ function(){
 Route::group([
 	'prefix' => 'admin',
 	'as' => 'admin.',
-	'namespace' => 'Admin'
+	'namespace' => 'Admin',
+	'middleware' => ['adminLogined','web']
 ],
 function(){
 	Route::get('dashboard','DashboardController@index')->name('dashboard');
+	Route::get('products','ProductController@index')->name('products');
+	Route::get('add-product','ProductController@addProduct')->name('addProduct');
+	Route::post('handle-add-product','ProductController@handleAddProduct')->name('handleAddProduct');
 });
 
 

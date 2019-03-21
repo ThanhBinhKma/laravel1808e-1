@@ -12,4 +12,13 @@ class Sizes extends Model
     {
     	return $this->belongsToMany('App\Models\Products');
     }
+
+    public function getAllDataSizes()
+    {
+        $data = Sizes::all();
+        if($data){
+            $data = $data->toArray();
+        }
+        return $data;
+    }
 }

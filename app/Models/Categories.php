@@ -13,4 +13,13 @@ class Categories extends Model
     {
     	return $this->belongsToMany('App\Models\Products');
     }
+
+    public function getAllDataCategories()
+    {
+    	$data = Categories::all();
+    	if($data){
+    		$data = $data->toArray();
+    	}
+    	return $data;
+    }
 }

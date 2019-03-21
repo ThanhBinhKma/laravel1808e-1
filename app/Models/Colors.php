@@ -25,4 +25,13 @@ class Colors extends Model
     	return $data;
     }
     */
+   
+    public function getAllDataColors()
+    {
+        $data = Colors::all();
+        if($data){
+            $data = $data->toArray();
+        }
+        return $data;
+    }
 }
