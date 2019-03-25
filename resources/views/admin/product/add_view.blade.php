@@ -17,6 +17,10 @@
     </div>
 @endif
 
+<div class="alert alert-danger">
+	<h3>{{ $mess }}</h3>
+</div>
+
 <form action="{{ route('admin.handleAddProduct') }}" method="POST" enctype="multipart/form-data">
 	@csrf
 	<div class="row">

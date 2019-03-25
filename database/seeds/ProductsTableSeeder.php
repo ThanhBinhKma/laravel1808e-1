@@ -22,10 +22,10 @@ class ProductsTableSeeder extends Seeder
 
         DB::table('products')->insert([
         	'name_product' => 'Quan jean Korea SD003',
-        	'id_cat' => $strIdCat,
-        	'id_color' => $strIdColor,
-        	'id_size' => $strIdSize,
-        	'id_brand' => 1,
+        	'categories_id' => $strIdCat,
+        	'colors_id' => $strIdColor,
+        	'sizes_id' => $strIdSize,
+        	'brands_id' => 1,
         	'price' => 200000,
         	'qty' => 10,
         	'description' => 'Quan dep - thoi trang han quoc',

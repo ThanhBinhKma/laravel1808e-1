@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Products extends Model
 {
@@ -28,5 +29,24 @@ class Products extends Model
     public function colors()
     {
     	return $this->belongsToMany('App\Models\Colors');
+    }
+
+    public function addDataProduct($data)
+    {
+        if(DB::table('products')->insert($data)){
+            return true;
+        }  
+        return false;
+    }
+
+    public function getAllDataProduct()
+    {
+        $data = Products::select('products.*', 'brands.brand_name')
+                ->join('brands','brands.id','=','products.brands_id')
+                ->get();
+        if($data){
+            $data = $data->toArray();
+        }
+        return $data;
     }
 }
