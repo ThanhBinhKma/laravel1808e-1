@@ -24,9 +24,14 @@ class ProductController extends Controller
 
         $data['lstPd'] = $pd->getAllDataProduct();
         foreach($data['lstPd'] as $key => $item) {
+            // xu ly cat
             $data['lstPd'][$key]['categories_id'] = json_decode($item['categories_id'],true);
+            // xu ly color
             $data['lstPd'][$key]['colors_id'] = json_decode($item['colors_id'],true);
+            // xu ly size
             $data['lstPd'][$key]['sizes_id'] = json_decode($item['sizes_id'],true);
+            // xu ly images product
+            $data['lstPd'][$key]['image_product'] = json_decode($item['image_product'],true);
         }
 
         foreach($data['lstPd'] as $key => $item){
@@ -52,7 +57,7 @@ class ProductController extends Controller
                 }
            }
         }
-
+        //dd($data['lstPd']);
     	return view('admin.product.index',$data);
     }
 
@@ -137,6 +142,39 @@ class ProductController extends Controller
         } else {
             $request->session()->flash('addPd','Can not upload image');
             return redirect()->route('admin.addProduct');
+        }
+    }
+
+    public function deleteProduct(Request $request, Products $pd)
+    {
+        if($request->ajax()){
+            // dung la ajax gui len thi moi xu ly
+            $id = $request->id;
+            $del = $pd->deleteProductById($id);
+            if($del){
+               echo "OK"; 
+            } else {
+                echo "FAIL";
+            }
+        }
+    }
+
+    public function editProduct($id, Request $request, Products $pd)
+    {
+        $id = is_numeric($id) ? $id : 0;
+        // lay thong tin san pham theo id
+        $infoPd = $pd->getInfoDataProductById($id);
+        if($infoPd){
+            $data = [];
+            $data['cat'] = $cat->getAllDataCategories();
+            $data['colors'] = $color->getAllDataColors();
+            $data['sizes'] = $size->getAllDataSizes();
+            $data['brands'] = $brand->getAllDataBrands();
+            $data['info'] = $infoPd;
+
+            return view('admin.product.edit_view',$data);
+        } else {
+            abort(404);
         }
     }
 }

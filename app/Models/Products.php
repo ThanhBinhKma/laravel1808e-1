@@ -49,4 +49,21 @@ class Products extends Model
         }
         return $data;
     }
+
+    public function deleteProductById($id)
+    {
+        $del = DB::table('products')
+                   ->where('id',$id)
+                   ->delete();
+        return $del;
+    }
+
+    public function getInfoDataProductById($id)
+    {
+        $data = Products::find($id);
+        if($data){
+            $data = $data->toArray();
+        }
+        return $data;
+    }
 }

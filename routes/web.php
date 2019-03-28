@@ -202,6 +202,8 @@ function(){
 	Route::get('products','ProductController@index')->name('products');
 	Route::get('add-product','ProductController@addProduct')->name('addProduct');
 	Route::post('handle-add-product','ProductController@handleAddProduct')->name('handleAddProduct');
+	Route::post('delete-product','ProductController@deleteProduct')->name('deleteProduct');
+	Route::get('edit-product/{id}','ProductController@editProduct')->name('editProduct')->where(['id'=>'[0-9]+']);
 });
 
 
