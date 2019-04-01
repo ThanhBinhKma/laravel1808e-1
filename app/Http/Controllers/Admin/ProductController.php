@@ -171,7 +171,7 @@ class ProductController extends Controller
             $data['sizes'] = $size->getAllDataSizes();
             $data['brands'] = $brand->getAllDataBrands();
             $data['info'] = $infoPd;
-            
+
             $data['infoCat'] = json_decode($infoPd['categories_id'],true);
             $data['infoColor'] = json_decode($infoPd['colors_id'],true);
             $data['infoSize'] = json_decode($infoPd['sizes_id'],true);
@@ -179,6 +179,82 @@ class ProductController extends Controller
             //dd($infoPd);
 
             return view('admin.product.edit_view',$data);
+        } else {
+            abort(404);
+        }
+    }
+
+    public function handleEditProduct(StoreProductsPost $request, Products $pd)
+    {
+        // lay cac du lieu tu form nguoi dung gui len
+        $id = $request->id;
+        $infoPd = $pd->getInfoDataProductById($id);
+        if($infoPd){
+            $nameProduct = $request->nameProduct;
+            $categories  = $request->cat;
+            $colors = $request->color;
+            $sizes = $request->size;
+            $brand = $request->brands;
+            $price = $request->price;
+            $qty = $request->qty;
+            $sale = $request->sale;
+            $description = $request->description;
+            // nhung anh ban dau khi add - truoc khi edit san pham
+            $arrNameFile  = json_decode($infoPd['image_product'],true);
+            $arrNameFile2 = [];
+
+            // thuc hien upload file
+            // kiem tra xem nguoi co chon file ko
+            if($request->hasFile('images')){
+                // lay thong tin cua file
+                $files = $request->file('images');
+                // mang dinh nghia cac file hop le
+                $extension = ['png','jpg','gif','jepg'];
+
+                foreach ($files as $key => $item) {
+                    // lay ra duoc ten file va duong dan luu tam thoi cua file tren may cua nguoi dung
+                    $nameFile = $item->getClientOriginalName();
+                    // lay ra duoi file (phan mo rong cua file)
+                    $exFiles = $item->getClientOriginalExtension();
+                    // kiem tra co hop le hay ko thi cho upload
+                    if(in_array($exFiles, $extension)){
+                        // tien hanh upload
+                        // public_path() : di vao thuc muc public
+                        // trong thu muc public : neu chua ton tai thu muc upload va thu muc images thi no tu dong tao
+                        $item->move(public_path().'/upload/images',$nameFile);
+                        $arrNameFile2[] = $nameFile;
+                    }
+                }
+
+            }
+            $arrNameFile = ($arrNameFile2) ? $arrNameFile2 : $arrNameFile;
+
+            if($arrNameFile){
+                $dataUpdate = [
+                    'name_product' => $nameProduct,
+                    'categories_id' => json_encode($categories),
+                    'colors_id' => json_encode($colors),
+                    'sizes_id' => json_encode($sizes),
+                    'brands_id' => $brand,
+                    'price' => $price,
+                    'qty' => $qty,
+                    'description' => $description,
+                    'image_product' => json_encode($arrNameFile),
+                    'sale_off' => $sale,
+                    'updated_at' => date('Y-m-d H:i:s')
+                ];
+                $up = $pd->updateDataProductById($dataUpdate, $id);
+                if($up){
+                    $request->session()->flash('editPd','update successful');
+                    return redirect()->route('admin.products');
+                } else {
+                    $request->session()->flash('editPd','Can not update');
+                    return redirect()->route('admin.editProduct',['id'=>$id]);
+                }
+            } else {
+                $request->session()->flash('editPd','Can not upload image');
+                return redirect()->route('admin.editProduct',['id'=>$id]);
+            }
         } else {
             abort(404);
         }

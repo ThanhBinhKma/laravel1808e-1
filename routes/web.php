@@ -204,6 +204,10 @@ function(){
 	Route::post('handle-add-product','ProductController@handleAddProduct')->name('handleAddProduct');
 	Route::post('delete-product','ProductController@deleteProduct')->name('deleteProduct');
 	Route::get('edit-product/{id}','ProductController@editProduct')->name('editProduct')->where(['id'=>'[0-9]+']);
+
+	Route::post('handle-edit-product/{id}','ProductController@handleEditProduct')
+				->name('handleEditProduct')
+				->where(['id'=>'[0-9]+']);
 });
 
 

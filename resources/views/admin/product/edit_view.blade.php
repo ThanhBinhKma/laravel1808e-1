@@ -3,7 +3,7 @@
 @section('content')
 <div class="row">
 	<div class="col-md-12">
-		<h3 class="text-center"> Add product !</h3>
+		<h3 class="text-center"> Update product !</h3>
 	</div>
 </div>
 
@@ -21,7 +21,7 @@
 	<h3>{{ $mess }}</h3>
 </div> --}}
 
-<form action="{{ route('admin.handleAddProduct') }}" method="POST" enctype="multipart/form-data">
+<form action="{{ route('admin.handleEditProduct',['id' => $info['id']]) }}" method="POST" enctype="multipart/form-data">
 	@csrf
 	<div class="row">
 		<div class="col-md-6">
@@ -96,7 +96,8 @@
 			</div>
 
 			<div class="form-group border-top">
-				@foreach($infoImage)
+				@foreach($infoImage as $key => $img)
+					<img src="{{ URL::to('/') }}/upload/images/{{ $img }}" width="120" height="120" class="img ml-3">
 				@endforeach
 			</div>
 
@@ -106,15 +107,17 @@
 			</div>
 			<div class="form-group border-top mt-3">
 				<label for="sale">Sale off</label>
-				<input type="text" name="sale" id="sale" class="form-control">
+				<input value="{{ $info['sale_off'] }}" type="text" name="sale" id="sale" class="form-control">
 			</div>
 			<div class="form-group border-top mt-3">
 				<label for="description">Description</label>
-				<textarea class="form-control" name="description" id="description" rows="5"></textarea>
+				<textarea class="form-control" name="description" id="description" rows="5">
+					{!! $info['description'] !!}
+				</textarea>
 			</div>
 		</div>
 		<div class="col-md-6 offset-md-3 mt-3 mb-3">
-			<button type="submit" class="btn btn-primary btn-block"> ADD + </button>
+			<button type="submit" class="btn btn-primary btn-block"> UPDATE </button>
 		</div>
 	</div>
 </form>

@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
 
 class StoreProductsPost extends FormRequest
 {
@@ -21,17 +22,21 @@ class StoreProductsPost extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(Request $request)
     {
+        $id = $request->id;
+        $unique = ($id) ? 'unique:products,name_product,'.$id : 'unique:products,name_product';
+        $image = ($id) ? '' : 'required';
+
         return [
-            'nameProduct' => 'required|unique:products,name_product|min:3',
+            'nameProduct' => 'required|'.$unique.'|min:3',
             'cat' => 'required',
             'color' => 'required',
             'size' => 'required',
             'brands' => 'required|numeric',
             'price' => 'required|numeric',
             'qty' => 'required|numeric',
-            'images' => 'required',
+            'images' => $image,
             'description' => 'required'
         ];
     }

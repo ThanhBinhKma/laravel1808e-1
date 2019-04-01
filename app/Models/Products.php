@@ -66,4 +66,12 @@ class Products extends Model
         }
         return $data;
     }
+
+    public function updateDataProductById($data, $id)
+    {
+        $up = DB::table('products')
+                    ->where('id',$id)
+                    ->update($data);
+        return $up;
+    }
 }
