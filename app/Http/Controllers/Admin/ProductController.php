@@ -159,7 +159,7 @@ class ProductController extends Controller
         }
     }
 
-    public function editProduct($id, Request $request, Products $pd)
+    public function editProduct($id, Request $request, Products $pd, Categories $cat, Colors $color, Sizes $size, Brands $brand)
     {
         $id = is_numeric($id) ? $id : 0;
         // lay thong tin san pham theo id
@@ -171,6 +171,12 @@ class ProductController extends Controller
             $data['sizes'] = $size->getAllDataSizes();
             $data['brands'] = $brand->getAllDataBrands();
             $data['info'] = $infoPd;
+            
+            $data['infoCat'] = json_decode($infoPd['categories_id'],true);
+            $data['infoColor'] = json_decode($infoPd['colors_id'],true);
+            $data['infoSize'] = json_decode($infoPd['sizes_id'],true);
+            $data['infoImage'] = json_decode($infoPd['image_product'],true);
+            //dd($infoPd);
 
             return view('admin.product.edit_view',$data);
         } else {
