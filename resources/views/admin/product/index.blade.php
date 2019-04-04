@@ -10,6 +10,7 @@
 <div class="row">
 	<div class="col-md-12">
 		<a href="{{ route('admin.addProduct') }}" class="btn btn-primary"> Add product + </a>
+		<a href="{{ route('admin.products') }}" class="btn btn-primary">View all</a>
 	</div>
 </div>
 <div class="row mt-3">
@@ -65,6 +66,9 @@
 				@endforeach
 			</tbody>
 		</table>
+		{{-- {{ $link->links() }} --}}
+		{{-- phan trang va tim kiem --}}
+		{{ $link->appends(request()->query())->links() }}
 	</div>
 </div>
 @endsection

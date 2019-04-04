@@ -39,14 +39,16 @@ class Products extends Model
         return false;
     }
 
-    public function getAllDataProduct()
+    public function getAllDataProduct($keyword = '')
     {
         $data = Products::select('products.*', 'brands.brand_name')
                 ->join('brands','brands.id','=','products.brands_id')
-                ->get();
-        if($data){
-            $data = $data->toArray();
-        }
+                ->where('products.name_product','LIKE','%'.$keyword.'%')
+                ->orWhere('products.price', 'LIKE' , '%'.$keyword.'%')
+                ->paginate(2);
+        // if($data){
+        //     $data = $data->toArray();
+        // }
         return $data;
     }
 
@@ -73,5 +75,12 @@ class Products extends Model
                     ->where('id',$id)
                     ->update($data);
         return $up;
+    }
+
+    public function getDataProductForUser()
+    {
+        $data = Products::select('*')
+                ->paginate(2);
+        return $data;
     }
 }

@@ -16,13 +16,19 @@ class ProductController extends Controller
 {
     public function index(Request $request, Products $pd, Categories $cat, Colors $color, Sizes $size)
     {
+        $keyword = trim($request->q);
+
         $data = [];
         $data['mess'] = $request->session()->get('addPd');
         $data['cat'] = $cat->getAllDataCategories();
         $data['sizes'] = $size->getAllDataSizes();
         $data['colors'] = $color->getAllDataColors();
 
-        $data['lstPd'] = $pd->getAllDataProduct();
+        $lstPd = $pd->getAllDataProduct($keyword);
+        $arrPd = ($lstPd) ? $lstPd->toArray() : [];
+        $data['lstPd'] = $arrPd['data'];
+        $data['link']  = $lstPd;
+
         foreach($data['lstPd'] as $key => $item) {
             // xu ly cat
             $data['lstPd'][$key]['categories_id'] = json_decode($item['categories_id'],true);

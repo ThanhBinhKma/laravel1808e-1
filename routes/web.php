@@ -11,9 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Route::get('/hello',function(){
 	return 'Hello word';
@@ -208,6 +208,15 @@ function(){
 	Route::post('handle-edit-product/{id}','ProductController@handleEditProduct')
 				->name('handleEditProduct')
 				->where(['id'=>'[0-9]+']);
+});
+
+/******************** Router Frontend - User **************************/
+
+Route::group([
+	'namespace' => 'Frontend',
+	'as' => 'fr.'
+],function(){
+	Route::get('/','ProductController@index')->name('product');
 });
 
 
