@@ -14,7 +14,16 @@ class ProductController extends BaseController
     	// load cate
     	$data = [];
     	$data['cate'] = $this->getAllDataCategoriesForUser($cate);
-    	$data['listPd'] = $pd->getDataProductForUser();
+
+    	$listPd = $pd->getDataProductForUser();
+    	$arrPd = $listPd ? $listPd->toArray() : [];
+    	$data['listPd'] = $arrPd['data'] ?? [];
+    	$data['link'] = $listPd; 
+
+    	foreach($data['listPd'] as $key => $item){
+    		$data['listPd'][$key]['image_product'] = json_decode($item['image_product'],true);
+    	}
+
     	return view('frontend.product.index',$data);
     }
 }

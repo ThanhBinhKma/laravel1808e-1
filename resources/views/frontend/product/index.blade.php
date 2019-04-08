@@ -5,13 +5,13 @@
   @foreach($listPd as $key => $item)
   <div class="col-lg-4 col-md-6 mb-4">
     <div class="card h-100">
-      <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+      <a href="#"><img class="card-img-top" src="{{ URL::to('/') }}/upload/images/{{ $item['image_product'][0] }}" alt=""></a>
       <div class="card-body">
         <h4 class="card-title">
-          <a href="#">{{ $item->name_product }}</a>
+          <a href="#">{{ $item['name_product'] }}</a>
         </h4>
-        <h5>${{ $item->price }}</h5>
-        <p class="card-text">{{ $item->description }}</p>
+        <h5>${{ $item['price'] }}</h5>
+        <p class="card-text">{{ $item['description'] }}</p>
       </div>
       <div class="card-footer">
         <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
