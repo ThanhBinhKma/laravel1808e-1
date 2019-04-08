@@ -8,6 +8,17 @@ class Colors extends Model
 {
     protected $table = 'colors';
 
+    public function getInfoColorByArrId($arrId = [])
+    {
+        $data = Colors::select('*')
+                      ->whereIn('id',$arrId)
+                      ->get();
+        if($data){
+            $data = $data->toArray();
+        }
+        return $data;
+    }
+
     public function products()
     {
     	return $this->belongsToMany('App\Models\Products');

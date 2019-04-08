@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\BaseController;
 use App\Models\Categories;
 use App\Models\Products;
+use App\Models\Sizes;
+use App\Models\Colors;
 
 class ProductController extends BaseController
 {
@@ -25,5 +27,30 @@ class ProductController extends BaseController
     	}
 
     	return view('frontend.product.index',$data);
+    }
+
+    public function detail($id, Request $request, Products $pd, Sizes $size, Colors $color, Categories $cate)
+    {
+    	// lay thong tin cua san pham
+    	$infoPd = $pd->getInfoDataProductById($id);
+    	if($infoPd){
+    		$arrColor = json_decode($infoPd['colors_id'], true);
+    		$arrSize = json_decode($infoPd['sizes_id'], true);
+    		$arrImage = json_decode($infoPd['image_product'],true);
+
+    		$infoColor = $color->getInfoColorByArrId($arrColor);
+    		$infoSize  = $size->getInfoSizeByArrid($arrSize);
+    		$data = [];
+    		$data['info'] = $infoPd;
+    		$data['images'] = $arrImage;
+    		$data['colors'] = $infoColor;
+    		$data['sizes'] = $infoSize;
+    		$data['cate'] = $this->getAllDataCategoriesForUser($cate);
+
+    		return view('frontend.product.detail',$data);
+
+    	} else {
+    		abort(404);
+    	}
     }
 }

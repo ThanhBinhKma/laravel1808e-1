@@ -7,6 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
 
   <title>Shop Homepage - Start Bootstrap Template</title>
 
@@ -15,6 +16,9 @@
 
   <!-- Custom styles for this template -->
   <link href="{{ asset('frontend/css/shop.css') }}" rel="stylesheet">
+
+  <link rel="stylesheet" href="{{ asset('frontend/css/detail.css') }}">
+
   @stack('css')
 </head>
 
@@ -116,6 +120,16 @@
   <!-- Bootstrap core JavaScript -->
   <script src="{{ asset('frontend/vendor/jquery/jquery.min.js') }}"></script>
   <script src="{{ asset('frontend/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+
+  <script type="text/javascript">
+    $(function(){
+      $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+      });
+    });
+  </script>
 
   @stack('js')
 

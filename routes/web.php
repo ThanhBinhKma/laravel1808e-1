@@ -217,6 +217,11 @@ Route::group([
 	'as' => 'fr.'
 ],function(){
 	Route::get('/','ProductController@index')->name('product');
+	Route::get('/detail-product/{id}','ProductController@detail')
+	      ->name('detailPd')
+	      ->where(['id' => '\d+']);
+
+	Route::post('add-cart','CartController@addCart')->name('addCart');
 });
 
 

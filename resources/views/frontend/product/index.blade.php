@@ -5,12 +5,12 @@
   @foreach($listPd as $key => $item)
   <div class="col-lg-4 col-md-6 mb-4">
     <div class="card h-100">
-      <a href="#">
+      <a href="{{ route('fr.detailPd',['id' => $item['id']]) }}">
         <img class="card-img-top" src="{{ URL::to('/') }}/upload/images/{{ $item['image_product'][0] }}" alt="">
       </a>
       <div class="card-body">
         <h4 class="card-title">
-          <a href="#">{{ $item['name_product'] }}</a>
+          <a href="{{ route('fr.detailPd',['id' => $item['id']]) }}">{{ $item['name_product'] }}</a>
         </h4>
         <h5>${{ $item['price'] }}</h5>
         <p class="card-text">{{ $item['description'] }}</p>
