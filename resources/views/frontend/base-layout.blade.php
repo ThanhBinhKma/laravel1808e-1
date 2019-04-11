@@ -47,6 +47,9 @@
           <li class="nav-item">
             <a class="nav-link" href="#">Contact</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ route('fr.showCart') }}">Cart</a>
+          </li>
         </ul>
       </div>
     </div>

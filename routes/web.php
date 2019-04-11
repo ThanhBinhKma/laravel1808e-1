@@ -222,6 +222,11 @@ Route::group([
 	      ->where(['id' => '\d+']);
 
 	Route::post('add-cart','CartController@addCart')->name('addCart');
+	Route::get('cart','CartController@showCart')->name('showCart');
+	Route::post('delete-cart','CartController@deleteCart')->name('deleteCart');
+	Route::post('update-cart','CartController@updateCart')->name('updateCart');
+	Route::get('payment-order','PaymentController@payment')->name('payment');
+
 });
 
 

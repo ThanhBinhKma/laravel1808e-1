@@ -104,12 +104,16 @@
 			$('#addCart').click(function() {
 				let sefl = $(this);
 				let idPd = "{{ $info['id'] }}";
-				let qty = $.trim($('#qtyPd').val());				
+				let qty = $.trim($('#qtyPd').val());
+				//can lay them mau sac va size khach hang chon
+				let textColor = $('input[name="inlineRadioOptionsColor"]:checked').next().text().trim();
+				let textSize = $('input[name="inlineRadioOptions"]:checked').next().text().trim();
+
 				if($.isNumeric(idPd)){
 					$.ajax({
 						url: "{{ route('fr.addCart') }}",
 						type: "POST",
-						data: {id : idPd, qty: qty},
+						data: {id : idPd, qty: qty, color: textColor, size: textSize},
 						beforeSend: function(){
 							sefl.text('Loading ...');
 						},
