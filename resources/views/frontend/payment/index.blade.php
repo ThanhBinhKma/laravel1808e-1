@@ -5,6 +5,7 @@
 	<div class="col-lg-12 col-md-12">
 		<h2 class="text-center">This is payment</h2>
 	</div>
+
 	<div class="table-responsive">
 		<table class="table">
 			<thead>
@@ -64,11 +65,21 @@
 			</tfoot>
 		</table>
 	</div>
+	<hr>
+	@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+	@endif
 	<div class="col-md-12 col-lg-12">
 
 		<h2 class="text-centerxt">Infomation customer</h2>
 
-		<form action="{{-- {{ route('fr.paymentOrder') }} --}}" method="POST">
+		<form action="{{ route('fr.paymentOrder') }}" method="POST">
 			@csrf
 			<div class="form-group">
 				<label for="username">(*) Fullname</label>

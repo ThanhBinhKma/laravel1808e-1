@@ -213,6 +213,8 @@ function(){
 /******************** Router Frontend - User **************************/
 
 Route::group([
+	'prefix' => LaravelLocalization::setLocale(),
+	'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ],
 	'namespace' => 'Frontend',
 	'as' => 'fr.'
 ],function(){
@@ -226,8 +228,27 @@ Route::group([
 	Route::post('delete-cart','CartController@deleteCart')->name('deleteCart');
 	Route::post('update-cart','CartController@updateCart')->name('updateCart');
 	Route::get('payment-order','PaymentController@payment')->name('payment');
+	Route::post('orders','PaymentController@payOrder')->name('paymentOrder');
 
 });
+
+Route::get('change-language/{lang?}',function($lang){
+	// set ngon ngu cho ung dung
+	App::setLocale($lang);
+	// gan bien lang vao session - de sung cho thu vien laravellocalization
+	// Session: global (toan cuc)
+	Session::put('locale',$lang);
+
+	// xe lai ngon ngu cho ung dung bang thu vien laravellocalization
+	LaravelLocalization::setLocale($lang);
+
+	// dieu huong url - quay sang trang ngon ngu ma nguoi dung chon
+	// \URL::previous() : quay ve dung trang ma nguoi dung da tung o do truoc khi bam chon ngon ngu
+	$url = LaravelLocalization::getLocalizedURL(App::getLocale(), \URL::previous());
+	 
+	return Redirect::to($url);
+
+})->name('switchLang');
 
 
 

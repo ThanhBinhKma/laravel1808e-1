@@ -34,22 +34,35 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="#">Home
+            <a class="nav-link" href="#">
+              @lang('common.home')
               <span class="sr-only">(current)</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">About</a>
+            <a class="nav-link" href="#">@lang('common.about')</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Services</a>
+            <a class="nav-link" href="#">@lang('common.service')</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Contact</a>
+            <a class="nav-link" href="#">@lang('common.contact')</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ route('fr.showCart') }}">Cart</a>
+            <a class="nav-link" href="{{ route('fr.showCart') }}">@lang('common.cart')</a>
           </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="{{ route('switchLang',['lang' => 'en']) }}">
+              English
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ route('switchLang',['lang' => 'vi']) }}">
+              Vietnamese
+            </a>
+          </li>
+
         </ul>
       </div>
     </div>
